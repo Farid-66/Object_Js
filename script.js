@@ -2,19 +2,19 @@
 
 let NumberOfFilms = +prompt("Axirinci ay erzinde nece film izleyibsiniz?");
 
-
-
-
 let PersonalMovieDB = {
     count: NumberOfFilms,
-    movies: {
-        [filmName]:[rating]
-    },
+    movies: {},
     private: false,
 
     showMyDb: function () {
         if (showVisibilit.call(this.private)) {
-            console.log(this.movies)
+            for (var i = 0; i < moviesKeys.length; i++) {
+                this.movies[moviesKeys[i]] = moviesValues[i];
+            }
+            Object.entries(this.movies).forEach(([key, value]) => {
+                console.log(`Movie: ${key} , Rating: ${value}`)
+            });
         }
         else {
             console.log("Bu hesab şəxsidir")
@@ -23,11 +23,18 @@ let PersonalMovieDB = {
     }
 }
 
+let moviesKeys = [];
+let moviesValues = [];
+
 for (let i = 0; i < PersonalMovieDB.count; i++) {
-    let filmName=prompt("Zəhmət olmasa filmin adını daxil edin");
-    let rating=prompt(`(0-10) araliginda, ${filmName} necə qiymetlendirerdiniz?`);
-    // PersonalMovieDB.movies[rating]
+
+    let film = prompt("Zəhmət olmasa filmin adini daxil edin");
+    let rating = prompt(`(0-10) araliginda, ${film} necə qiymetlendirerdiniz?`);
+
+    moviesKeys.push(film)
+    moviesValues.push(rating)
 }
+
 
 function showVisibilit() {
     if (PersonalMovieDB.private == false) {
@@ -36,7 +43,5 @@ function showVisibilit() {
         return PersonalMovieDB.private = false;
     }
 }
-
-
 
 showVisibilit.call(PersonalMovieDB.showMyDb())
